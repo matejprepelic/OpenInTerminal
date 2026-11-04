@@ -1,6 +1,16 @@
 # OpenInTerminal Configurations
 
+## This personal fork
+
+For **OpenInTerminal Matej**, use the build and installation scripts in
+[README-Matej.md](../README-Matej.md). The installed bundle is
+`/Applications/OpenInTerminal Matej.app`; the original Homebrew app remains intact.
+The fork has its own preferences and Finder extension identifiers.
+
 ## Installing Unsigned Apps
+
+This section applies to downloaded unsigned bundles. A local build made with
+`scripts/build-local.sh` is ad-hoc signed and normally has no download quarantine.
 
 On first launch, macOS may refuse to open the app — for example `"OpenInTerminal" is damaged and can't be opened`, or `cannot be opened because Apple cannot check it for malicious software`.
 
@@ -36,11 +46,12 @@ Then drag the `OpenInTerminal` icon to the toolbar:
 
 #### 1) Enable the Finder Extension in Settings (Tahoe)
 
-Go to `System Settings` -> `General` -> `Login Items & Extensions` -> `OpenInTerminal Extensions`, and enable `File Provider`.
+Go to `System Settings` -> `General` -> `Login Items & Extensions` -> `OpenInTerminal Matej Extensions`, and enable `File Provider`.
 
 #### 2) Manually Enable the Finder Extension (macOS 15)
 
-Starting with macOS 15, Apple removed the Finder Sync Extension configuration from System Settings. To enable the Finder Extension, use the `pluginkit` command-line tool as follows:
+If the Finder extension is absent from System Settings, inspect it with
+`pluginkit`:
 
 ```
 $ pluginkit -mAD -p com.apple.FinderSync -vvv
@@ -49,23 +60,25 @@ $ pluginkit -mAD -p com.apple.FinderSync -vvv
 You should see output similar to the following:
 
 ```
-wang.jianing.app.OpenInTerminal.OpenInTerminalFinderExtension(2.3.5)
-           Path = /Applications/OpenInTerminal.app/Contents/PlugIns/OpenInTerminalFinderExtension.appex
-           UUID = F2547F13-4E43-4E88-9D8F-56DF05C020D8
-      Timestamp = 2024-09-17 09:34:07 +0000
+com.matejprepelic.OpenInTerminal.OpenInTerminalFinderExtension(2.3.9)
+           Path = /Applications/OpenInTerminal Matej.app/Contents/PlugIns/OpenInTerminalFinderExtension.appex
             SDK = com.apple.FinderSync
-  Parent Bundle = /Applications/OpenInTerminal.app
-   Display Name = OpenInTerminalFinderExtension
+  Parent Bundle = /Applications/OpenInTerminal Matej.app
+   Display Name = OpenInTerminal Matej Finder
      Short Name = OpenInTerminalFinderExtension
-    Parent Name = OpenInTerminal
+    Parent Name = OpenInTerminal Matej
        Platform = macOS
 ```
 
-To manually enable the Finder Extension, run the following command with the UUID from the output:
+Enable only this fork's extension by its exact identifier:
 
 ```
-$ pluginkit -e "use" -u "F2547F13-4E43-4E88-9D8F-56DF05C020D8"
+$ pluginkit -e use -i com.matejprepelic.OpenInTerminal.OpenInTerminalFinderExtension
 ```
+
+Use `-i`, not the older `-u UUID` recipe: `-u` is not supported by the current
+macOS tool. To avoid duplicate menus, the local installer disables only the
+original `wang.jianing.app.OpenInTerminal.OpenInTerminalFinderExtension` identifier.
 
 #### 3) Use FinderSyncer
 
@@ -75,7 +88,7 @@ Alternatively, you could use a GUI tool called [FinderSyncer](https://zigz.ag/Fi
 
 For macOS 14 and earlier, ensure the Finder Extension is enabled via System Preferences:
 
-1. Open the OpenInTerminal app.
+1. Open the OpenInTerminal Matej app.
 2. Navigate to `System Preferences` -> `Extensions` -> `Finder Extensions`.
 3. Check the checkbox next to `OpenInTerminalFinderExtension`, as shown below:
 
@@ -85,14 +98,14 @@ For macOS 14 and earlier, ensure the Finder Extension is enabled via System Pref
 
 ## Preferences on macOS 26 and later
 
-The full app saves preferences in its own `wang.jianing.app.OpenInTerminal`
-UserDefaults domain. It copies accessible preferences from the legacy App Group
-once, without deleting them or overwriting settings already saved in the new domain.
-If the old installation could not save settings, choose your terminal and editor
-again after updating.
+This fork saves preferences in its own `com.matejprepelic.OpenInTerminal`
+UserDefaults domain. It neither reads the original app's protected App Group nor
+changes its existing preferences. The installer initializes an empty fork domain
+with iTerm tabs when iTerm is installed, and preserves existing fork preferences
+on later installations.
 
 The host publishes Finder preferences as `shared-settings.plist` in
-`~/Library/Application Scripts/wang.jianing.app.OpenInTerminal.OpenInTerminalFinderExtension/`.
+`~/Library/Application Scripts/com.matejprepelic.OpenInTerminal.OpenInTerminalFinderExtension/`.
 The Finder extension reads that snapshot whenever it builds a menu. This uses the
 same directory as its existing AppleScripts and works with ad-hoc signing; an App
 Group provisioning profile or Full Disk Access is not required. Launch the host
@@ -104,18 +117,18 @@ To run the preference regression checks:
 Tests/SharedPreferences/run.sh
 ```
 
-For a local build with Xcode 27, pass `MACOSX_DEPLOYMENT_TARGET=12.0` to
-`xcodebuild`. Older deployment targets are rejected by that toolchain. This local
-build setting does not change the deployment targets stored in the project.
+`scripts/build-local.sh` passes `MACOSX_DEPLOYMENT_TARGET=12.0` for Xcode 27.
+Older deployment targets are rejected by that toolchain. This local build setting
+does not change the deployment targets stored in the project.
 
 ## Custom Configuration
 
 ### For Neovim Users
 
-If you select Neovim as your editor in OpenInTerminal, the app will use Kitty as the default terminal. To switch to a different terminal (supported options: Alacritty, WezTerm, and Kitty), update the configuration with the following command. Replace `<Your Name>` with your username and adjust the Neovim path (`/opt/homebrew/bin/nvim` in this example) to match your installation:
+If you select Neovim as your editor in OpenInTerminal, the app will use Kitty as the default terminal. To switch to a different terminal (supported options: Alacritty, WezTerm, and Kitty), update the fork's preferences with the following command. Adjust the Neovim path (`/opt/homebrew/bin/nvim` in this example) to match your installation:
 
 ```
-defaults write /Users/<Your Name>/Library/Group\ Containers/group.wang.jianing.app.OpenInTerminal/Library/Preferences/group.wang.jianing.app.OpenInTerminal.plist NeovimCommand "open -na wezterm --args start /opt/homebrew/bin/nvim PATH"
+defaults write com.matejprepelic.OpenInTerminal NeovimCommand "open -na wezterm --args start /opt/homebrew/bin/nvim PATH"
 ```
 
 Other terminal configurations:
@@ -137,21 +150,21 @@ The default launch behavior for kitty is to open a new instance for each command
 open -na kitty --args --single-instance --instance-group 1 --directory
 ```
 
-If you want to customize this behavior, you can run the following command in your terminal. Make sure to replace `<Your Name>` with your username and adjust the open command as what you want:
+To customize this behavior, write the command to the fork's preferences domain:
 
 ```
-defaults write /Users/<Your Name>/Library/Group\ Containers/group.wang.jianing.app.OpenInTerminal/Library/Preferences/group.wang.jianing.app.OpenInTerminal.plist KittyCommand "open -na kitty --args --single-instance --instance-group 1 --directory"
+defaults write com.matejprepelic.OpenInTerminal KittyCommand "open -na kitty --args --single-instance --instance-group 1 --directory"
 ```
 
 ## FAQ ❓
 
 <details><summary>Oops, hit <code>Don't Allow</code> button by mistake.</summary><br>
-<p>No sweat! Just run the following command in your terminal, and it'll reset the permissions in System Preferences.</p>
-<br><code>tccutil reset AppleEvents wang.jianing.app.OpenInTerminal</code><br>
+<p>The basic iTerm context-menu action does not require Finder Automation access. If you denied an AppleScript-driven terminal feature, reset the fork's Automation permissions and invoke that feature again.</p>
+<br><code>tccutil reset AppleEvents com.matejprepelic.OpenInTerminal</code><br>
 </details>
 
 <details><summary>Special characters in the <code>path</code>.</summary><br>
-<p>Please do not use backslash <code>\</code> and double quotes <code>"</code> in the path.</p>
+<p>The general open action quotes each path argument separately, so spaces and apostrophes are supported.</p>
 </details>
 
 <details><summary>Open two Terminal windows on Mojave</summary><br>

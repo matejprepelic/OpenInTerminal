@@ -750,7 +750,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = wang.jianing.app.OpenInTerminalCore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matejprepelic.OpenInTerminalCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -783,7 +783,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = wang.jianing.app.OpenInTerminalCore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matejprepelic.OpenInTerminalCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -811,7 +811,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.3.9;
-				PRODUCT_BUNDLE_IDENTIFIER = wang.jianing.app.OpenInTerminal.OpenInTerminalFinderExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matejprepelic.OpenInTerminal.OpenInTerminalFinderExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -838,7 +838,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.3.9;
-				PRODUCT_BUNDLE_IDENTIFIER = wang.jianing.app.OpenInTerminal.OpenInTerminalFinderExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matejprepelic.OpenInTerminal.OpenInTerminalFinderExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -864,7 +864,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.3.9;
-				PRODUCT_BUNDLE_IDENTIFIER = wang.jianing.app.OpenInTerminal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matejprepelic.OpenInTerminal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -889,7 +889,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.3.9;
-				PRODUCT_BUNDLE_IDENTIFIER = wang.jianing.app.OpenInTerminal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matejprepelic.OpenInTerminal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -912,7 +912,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.3.9;
-				PRODUCT_BUNDLE_IDENTIFIER = wang.jianing.app.OpenInTerminalHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matejprepelic.OpenInTerminalHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -936,7 +936,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.3.9;
-				PRODUCT_BUNDLE_IDENTIFIER = wang.jianing.app.OpenInTerminalHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matejprepelic.OpenInTerminalHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;

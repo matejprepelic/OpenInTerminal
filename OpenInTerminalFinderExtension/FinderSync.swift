@@ -17,13 +17,14 @@ class FinderSync: FIFinderSync {
         super.init()
         SharedPreferences.refreshExtension()
         let finderSync = FIFinderSyncController.default()
-        finderSync.directoryURLs = [URL(fileURLWithPath: "/")]
+        // Mounted volumes need their own scopes for background menus to work
+        // at a volume's root. The local build's icon metadata prevents Finder
+        // from substituting the host app's icon for those sidebar entries.
+        finderSync.directoryURLs = [URL(fileURLWithPath: "/", isDirectory: true)]
         if let mountedVolumes = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: [.skipHiddenVolumes]) {
             finderSync.directoryURLs.formUnion(mountedVolumes)
         }
-        // Monitor volumes
-        let notificationCenter = NSWorkspace.shared.notificationCenter
-        notificationCenter.addObserver(forName: NSWorkspace.didMountNotification, object: nil, queue: .main) { notification in
+        NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didMountNotification, object: nil, queue: .main) { notification in
             if let volumeURL = notification.userInfo?[NSWorkspace.volumeURLUserInfoKey] as? URL {
                 finderSync.directoryURLs.insert(volumeURL)
             }

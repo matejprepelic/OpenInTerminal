@@ -13,7 +13,7 @@ import Foundation
 public var Defaults: UserDefaults = UserDefaults.standard
 
 public enum SharedPreferences {
-    static let hostID = "wang.jianing.app.OpenInTerminal"
+    static let hostID = "com.matejprepelic.OpenInTerminal"
     static let extensionID = hostID + ".OpenInTerminalFinderExtension"
     static let migrationKey = "LegacyPreferencesMigrated"
     static var observer: NSObjectProtocol?
@@ -83,11 +83,9 @@ public enum SharedPreferences {
 
     public static func startHost() {
         guard Bundle.main.bundleIdentifier == hostID, observer == nil else { return }
-        if !Defaults.bool(forKey: migrationKey) {
-            let legacy = UserDefaults(suiteName: Constants.Id.Group)?
-                .persistentDomain(forName: Constants.Id.Group) ?? [:]
-            migrate(legacy, to: Defaults)
-        }
+        // This fork owns a separate preferences domain. Do not request access
+        // to the original app's protected group container on first launch.
+        migrate([:], to: Defaults)
         observer = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification,
                                                           object: Defaults, queue: nil) { _ in
             publish()
