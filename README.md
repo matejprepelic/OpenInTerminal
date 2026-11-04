@@ -1,3 +1,7 @@
+> **OpenInTerminal Matej:** this personal fork fixes mounted-volume sidebar icons
+> and uses independent preferences. See [build and installation instructions](README-Matej.md)
+> for the custom app; the Homebrew commands below install the upstream app.
+
 <div align="center">
   <img width="80%" src="https://github.com/user-attachments/assets/43667e33-d02d-4a0e-8ca9-fd1cf411b24a"><br/><br/>
   <a href="./README.md">English</a> | <a href="./Resources/README-zh.md">中文</a> | <a href="./Resources/README-tr.md">Türkçe</a> | <a href="./Resources/README-de.md">Deutsch</a>
